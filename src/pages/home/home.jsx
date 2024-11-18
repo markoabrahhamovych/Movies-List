@@ -8,7 +8,7 @@ import {
   onGetListMoviesBySearch,
 } from "../../api/getListMovies.js";
 import { onConvertData } from "../../utils/converUtils.js";
-import { useDebounce } from "../../../hooks/useDebouce.js";
+import { useDebounce } from "../../hooks/useDebouce.js";
 import { PageTitle } from "./components/title.jsx";
 import { SearchField } from "./components/searchField.jsx";
 

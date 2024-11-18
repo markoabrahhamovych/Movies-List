@@ -6,7 +6,9 @@ export const HomePage = lazy(() => import("../pages/home/home.jsx"));
 export const MovieDetails = lazy(
   () => import("../pages/movie/movieDetails.jsx"),
 );
-export const NotFoundPage = lazy(() => import("../pages/notFound/notFound.js"));
+export const NotFoundPage = lazy(
+  () => import("../pages/notFound/notFound.jsx"),
+);
 
 export const Router = () => {
   return (
