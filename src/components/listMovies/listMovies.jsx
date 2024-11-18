@@ -3,7 +3,7 @@ import {
   CardContent,
   CardMedia,
   Grid,
-  Rating,
+  Chip,
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -17,7 +17,14 @@ const ItemContainer = ({ item }) => {
     </Typography>
   );
 
-  const ratingBlock = <Rating value={rating} readOnly precision={0.1} />;
+  const ratingBlock = (
+    <Chip
+      label={`${rating}%`}
+      variant="outlined"
+      color="success"
+      sx={{ marginTop: "5px" }}
+    />
+  );
 
   const detailsBlock = (
     <CardContent>
