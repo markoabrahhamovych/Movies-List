@@ -1,8 +1,28 @@
 import { useState, useEffect } from "react";
-import { Container, Typography, CardMedia, Button, Grid } from "@mui/material";
+import {
+  Container,
+  Typography,
+  CardMedia,
+  Button,
+  Grid,
+  Box,
+  Chip,
+} from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { DetailsSkeleton } from "../../components/detailsSkeleton/detailsSkeleton.jsx";
+
+const GenreList = ({ list = [] }) => {
+  return (
+    <Box
+      sx={{ display: "flex", flexDirection: "row", gap: 1, padding: "20px 0" }}
+    >
+      {(list || []).map((i) => (
+        <Chip label={i?.name} color="success" variant="outlined" id={i?.id} />
+      ))}
+    </Box>
+  );
+};
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -12,11 +32,12 @@ const MovieDetails = () => {
     poster_path: null,
     vote_average: null,
     overview: null,
+    genres: [],
   });
 
   const [loading, setLoading] = useState(false);
 
-  const fetchMovieDetails = async () => {
+  const fetchMovieDetails = async ({ id }) => {
     setLoading(true);
     await axios
       .get(
@@ -35,7 +56,7 @@ const MovieDetails = () => {
   };
 
   useEffect(() => {
-    fetchMovieDetails();
+    fetchMovieDetails({ id });
   }, [id]);
 
   const imageContainer = (
@@ -56,6 +77,12 @@ const MovieDetails = () => {
     </Typography>
   );
 
+  const releaseDateContainer = (
+    <Typography variant="body1" gutterBottom>
+      {movie.release_date}
+    </Typography>
+  );
+
   const overviewContainer = (
     <Typography variant="body1" paragraph>
       {movie.overview}
@@ -73,11 +100,14 @@ const MovieDetails = () => {
       Back to Movie List
     </Button>
   );
+  const genresList = <GenreList list={movie?.genres || []} />;
 
   const detailsContainer = (
     <Grid item xs={12} md={8}>
       {titleContainer}
+      {releaseDateContainer}
       {overviewContainer}
+      {genresList}
       {rateContainer}
       {backButtonContainer}
     </Grid>
